@@ -7,13 +7,16 @@ import androidx.databinding.library.baseAdapters.BR;
 
 public class ViewModel extends BaseObservable {
     private String formText;
+    // クリック時表示テキストの初期値をセット
+    private String clickText = "ボタンクリックでここに表示";
 
-    // ゲット
+    //
     @Bindable public String getFormText() {
         return formText;
     }
 
-    // setには @Bindable　不要そう
+    // レイアウトで@={viewModel.formText}としないとフォームの中身に変更があった時にsetFormText()が実行されない
+    // 単一方向: @{} 双方向: @={}  「=」の有無に注意
     public void setFormText(String formText) {
         this.formText = formText;
         notifyPropertyChanged(BR.realTimeText);
@@ -22,14 +25,11 @@ public class ViewModel extends BaseObservable {
 
     // メソッド名とは違う処理も合わせて行っているのがあまりよくなさそう
     @Bindable public String getClickText() {
-        String clickText = formText;
-        formText = "";
-        notifyPropertyChanged(BR.formText);
         return clickText;
     }
 
-    @Bindable
-    public String getRealTimeText() {
+    // フォーム下にリアルタイムでテキスト表示する
+    @Bindable public String getRealTimeText() {
         // フォーム入力のテキストを代入
         String realTimeText = formText;
         return realTimeText;
@@ -40,7 +40,11 @@ public class ViewModel extends BaseObservable {
         return !TextUtils.isEmpty(formText);
     }
 
+    // ボタンクリックイベント
     public void onButtonClick() {
+        clickText = formText;
+        formText = "";
         notifyPropertyChanged(BR.clickText);
+        notifyPropertyChanged(BR.formText);
     }
 }
