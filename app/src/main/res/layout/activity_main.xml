@@ -17,8 +17,20 @@
         android:layout_height="match_parent"
         >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="@{viewModel.clickText}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.15"
+            />
+
 <!--        viewModel.formTextは get?-->
-<!--        「@=」で双方向にしないとテキストを入力したときに実行されない呼ばれない-->
+<!--        「@=」で双方向にしないとテキストを入力したときにsetFormTextが実行されない -->
         <EditText
             android:id="@+id/input_form"
             android:layout_width="184dp"
@@ -40,16 +52,16 @@
             android:layout_height="wrap_content"
             android:text="ボタン"
             android:enabled="@{viewModel.buttonEnable}"
+            android:onClick="@{() -> viewModel.onButtonClick()}"
             app:layout_constraintStart_toEndOf="@id/input_form"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/input_form"
             />
 
         <TextView
-            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.displayText}"
+            android:text="@{viewModel.realTimeText}"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="@id/input_form"
             app:layout_constraintTop_toBottomOf="@id/input_form"
