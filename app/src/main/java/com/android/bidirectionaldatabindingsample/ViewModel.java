@@ -6,15 +6,16 @@ import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
 public class ViewModel extends BaseObservable {
-    private String formText;
-    // クリック時表示テキストの初期値をセット
+    // 変数の初期値をセット
+    private String formText = "";
     private String clickText = "ボタンクリックでここに表示";
 
-    //
+    // フォーム（EditText）の入力値の getter
     @Bindable public String getFormText() {
         return formText;
     }
 
+    // フォーム（EditText）の入力値の setter
     // レイアウトで@={viewModel.formText}としないとフォームの中身に変更があった時にsetFormText()が実行されない
     // 単一方向: @{} 双方向: @={}  「=」の有無に注意
     public void setFormText(String formText) {
@@ -23,19 +24,19 @@ public class ViewModel extends BaseObservable {
         notifyPropertyChanged(BR.buttonEnable);
     }
 
-    // メソッド名とは違う処理も合わせて行っているのがあまりよくなさそう
+    // ボタンクリック時に表示するテキスト（TextView）の getter
     @Bindable public String getClickText() {
         return clickText;
     }
 
-    // フォーム下にリアルタイムでテキスト表示する
+    // フォーム下にリアルタイムで表示するテキスト（TextView）の getter
     @Bindable public String getRealTimeText() {
-        // フォーム入力のテキストを代入
+        // フォーム入力されているテキストを代入
         String realTimeText = formText;
         return realTimeText;
     }
 
-    // EditTextに入力があるかどうかでボタン活性・非活性を制御
+    // フォーム（EditText）にテキスト入力があるかどうかでボタン活性・非活性を制御するフラグの getter
     @Bindable public boolean isButtonEnable() {
         return !TextUtils.isEmpty(formText);
     }

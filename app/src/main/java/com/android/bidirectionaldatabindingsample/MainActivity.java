@@ -21,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("双方向データバインディングサンプル");
 
+        // Bindingインスタンスを生成
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        // ViewModelオブジェクトとバインドする（紐付ける）
         ViewModel viewModel = new ViewModel();
         binding.setViewModel(viewModel);
     }
